@@ -1,3 +1,4 @@
+import numpy as np
 # -*- coding: utf-8 -*-
 """ProblemasCEC2010.ipynb
 
@@ -8,6 +9,7 @@ Original file is located at
 
 ## C01
 """
+
 
 class ProblemaC01:
     def __init__(self, offset):
@@ -466,6 +468,7 @@ class ProblemaC11:
         return np.sum(term1 + term2)
 
     def sumar_violation(self, y):
+      h1_val=self.h1(y)
       viol_h1 = max(0.0, abs(h1_val) - self.tolerance)
       return viol_h1
 
