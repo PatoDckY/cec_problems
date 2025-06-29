@@ -110,8 +110,8 @@ class ProblemaC03:
     def evaluate(self, individuo):
         self.x = np.asarray(individuo, dtype=float)
         self.z = self.x - self.offset
-        fitness = self.aptitud(self.z)
-        suma_violaciones = self.sumar_violation(self.z)
+        fitness = self.aptitud()
+        suma_violaciones = self.sumar_violation()
 
         return fitness, suma_violaciones
 
@@ -245,8 +245,8 @@ class ProblemaC06:
         self.x = np.asarray(individuo, dtype=float)
         self.z = self.x - self.offset
         self.y = (self.x + 483.6106156535 - self.offset) * self.m - 483.6106156535
-        fitness = self.aptitud(self.z)
-        suma_violaciones = self.sumar_violation(self.z)
+        fitness = self.aptitud()
+        suma_violaciones = self.sumar_violation()
 
         return fitness, suma_violaciones
 
@@ -284,7 +284,7 @@ class ProblemaC07:
         self.x = np.asarray(individuo, dtype=float)
         self.z = self.x + 1 - self.offset
         self.y = self.x - self.offset
-        fitness = self.aptitud(self.z)
+        fitness = self.aptitud()
         suma_violaciones = self.sumar_violation()
 
         return fitness, suma_violaciones
@@ -330,8 +330,8 @@ class ProblemaC08:
         self.x = np.asarray(individuo, dtype=float)
         self.z = self.x + 1 - self.offset
         self.y = (self.x - self.offset) @ self.m
-        fitness = self.aptitud(self.z)
-        suma_violaciones = self.sumar_violation(self.z)
+        fitness = self.aptitud()
+        suma_violaciones = self.sumar_violation()
 
         return fitness, suma_violaciones
 
