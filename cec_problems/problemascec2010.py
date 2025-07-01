@@ -12,7 +12,7 @@ Original file is located at
 
 
 class ProblemaC01:
-    def __init__(self, offset):
+    def init(self, offset):
         self.tolerance = 1e-4
         self.offset = np.asarray(offset, dtype=float)
         self.D = len(self.offset)
@@ -37,7 +37,7 @@ class ProblemaC01:
         denominador = np.sqrt(np.sum(np.arange(1, self.D + 1) * z ** 2))
         if denominador < self.tolerance:
             return 0.0
-        return numerador / denominador
+        return - (numerador / denominador)
 
     def g1(self, z):
         return 0.75 - np.prod(z)
@@ -49,7 +49,6 @@ class ProblemaC01:
         viol_g1 = max(0.0, self.g1(z))
         viol_g2 = max(0.0, self.g2(z))
         return viol_g1 + viol_g2
-
 """## C02"""
 
 class ProblemaC02:
