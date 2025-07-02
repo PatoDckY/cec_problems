@@ -48,43 +48,6 @@ class ProblemaC01:
     def sumar_violation(self, z):
         viol_g1 = max(0.0, self.g1(z))
         viol_g2 = max(0.0, self.g2(z))
-        return viol_g1 + viol_g2class ProblemaC01:
-    def init(self, offset):
-        self.tolerance = 1e-4
-        self.offset = np.asarray(offset, dtype=float)
-        self.D = len(self.offset)
-        self.lower_bounds = np.full(self.D, 0.0)
-        self.upper_bounds = np.full(self.D, 10.0)
-
-    def get_limites(self):
-        return self.lower_bounds, self.upper_bounds
-
-    def evaluate(self, individuo):
-        self.x = np.asarray(individuo, dtype=float)
-        self.z = self.x - self.offset
-        fitness = self.aptitud(self.z)
-        suma_violaciones = self.sumar_violation(self.z)
-
-        return fitness, suma_violaciones
-
-    def aptitud(self, z):
-        cos2 = np.cos(z) ** 2
-        cos4 = np.cos(z) ** 4
-        numerador = np.abs(np.sum(cos4) - 2 * np.prod(cos2))
-        denominador = np.sqrt(np.sum(np.arange(1, self.D + 1) * z ** 2))
-        if denominador < self.tolerance:
-            return 0.0
-        return - (numerador / denominador)
-
-    def g1(self, z):
-        return 0.75 - np.prod(z)
-
-    def g2(self, z):
-        return np.sum(z) - 7.5 * self.D
-
-    def sumar_violation(self, z):
-        viol_g1 = max(0.0, self.g1(z))
-        viol_g2 = max(0.0, self.g2(z))
         return viol_g1 + viol_g2
 """## C02"""
 
