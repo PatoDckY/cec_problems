@@ -12,7 +12,7 @@ Original file is located at
 
 
 class ProblemaC01:
-    def init(self, offset):
+    def __init__(self, offset):
         self.tolerance = 1e-4
         self.offset = np.asarray(offset, dtype=float)
         self.D = len(self.offset)
