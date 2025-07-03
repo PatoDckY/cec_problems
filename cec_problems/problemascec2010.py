@@ -394,7 +394,7 @@ class ProblemaC10:
         self.D = len(self.offset)
         self.lower_bounds = np.full(self.D, -500.0)
         self.upper_bounds = np.full(self.D, 500.0)
-        self.m = self.generar_m(42)
+        self.m = self.generar_m(seed=42)
 
     def get_limites(self):
         return self.lower_bounds, self.upper_bounds
@@ -408,6 +408,11 @@ class ProblemaC10:
 
     def evaluate(self, individuo):
         self.x = np.asarray(individuo, dtype=float)
+        if self.x.shape != self.offset.shape:
+            raise ValueError(
+                f"Dimensionalidad de individuo ({len(self.x)}) "
+                f"no coincide con offset ({len(self.offset)})"
+            )
         self.z = self.x + 1 - self.offset
         self.y = (self.x - self.offset) @ self.m
         fitness = self.aptitud()
@@ -415,7 +420,7 @@ class ProblemaC10:
         return fitness, suma_violaciones
 
     def aptitud(self):
-        term1 = 100 * (self.z[:-1]**2 - self.z[1:])**2
+        term1 = 100 * (self.z[:-1]*2 - self.z[1:])*2
         term2 = (self.z[:-1] - 1)**2
         return np.sum(term1 + term2)
 
@@ -424,12 +429,9 @@ class ProblemaC10:
         return violation
 
     def sumar_violation(self):
-        h1_val = self.h1()
-        viol_h1 = max(0.0, abs(h1_val) - self.tolerance)
+        viol_h1 = max(0.0, abs(self.h1()) - self.tolerance)
         return viol_h1
 
-
-"""## C11"""
 class ProblemaC11:
     def __init__(self, offset):
         self.tolerance = 1e-4
@@ -437,13 +439,13 @@ class ProblemaC11:
         self.D = len(self.offset)
         self.lower_bounds = np.full(self.D, -100.0)
         self.upper_bounds = np.full(self.D, 100.0)
-        self.m = self.generar_m(42)
+        self.m = self.generar_m(seed=42)
 
     def get_limites(self):
         return self.lower_bounds, self.upper_bounds
 
     def generar_m(self, seed=None):
-        if seed:
+        if seed is not None:
             np.random.seed(seed)
         A = np.random.randn(self.D, self.D)
         Q, _ = np.linalg.qr(A)
@@ -451,6 +453,11 @@ class ProblemaC11:
 
     def evaluate(self, individuo):
         self.x = np.asarray(individuo, dtype=float)
+        if self.x.shape != self.offset.shape:
+            raise ValueError(
+                f"Dimensionalidad de individuo ({len(self.x)}) "
+                f"no coincide con offset ({len(self.offset)})"
+            )
         self.z = (self.x - self.offset) @ self.m
         self.y = self.x + 1 - self.offset
         fitness = self.aptitud()
@@ -461,15 +468,13 @@ class ProblemaC11:
         return np.mean(-self.z * np.cos(2 * np.sqrt(np.abs(self.z))))
 
     def h1(self):
-        term1 = 100 * (self.y[:-1]**2 - self.y[1:])**2
+        term1 = 100 * (self.y[:-1]*2 - self.y[1:])*2
         term2 = (self.y[:-1] - 1)**2
         return np.sum(term1 + term2)
 
     def sumar_violation(self):
-        h1_val = self.h1()
-        viol_h1 = max(0.0, abs(h1_val) - self.tolerance)
+        viol_h1 = max(0.0, abs(self.h1()) - self.tolerance)
         return viol_h1
-
 """## C12"""
 
 class ProblemaC12:
