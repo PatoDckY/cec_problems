@@ -234,9 +234,8 @@ class ProblemaC06:
         return self.lower_bounds, self.upper_bounds
 
     def generar_m(self, seed=None):
-        if seed:
-            np.random.seed(seed)
-        A = np.random.randn(self.D, self.D)
+        rng = np.random.RandomState(seed)
+        A = rng.randn(self.D, self.D)
         Q, _ = np.linalg.qr(A)
         return Q
 
@@ -319,9 +318,8 @@ class ProblemaC08:
         return self.lower_bounds, self.upper_bounds
 
     def generar_m(self, seed=None):
-        if seed:
-            np.random.seed(seed)
-        A = np.random.randn(self.D, self.D)
+        rng = np.random.RandomState(seed)
+        A = rng.randn(self.D, self.D)
         Q, _ = np.linalg.qr(A)
         return Q
 
@@ -400,9 +398,8 @@ class ProblemaC10:
         return self.lower_bounds, self.upper_bounds
 
     def generar_m(self, seed=None):
-        if seed:
-            np.random.seed(seed)
-        A = np.random.randn(self.D, self.D)
+        rng = np.random.RandomState(seed)
+        A = rng.randn(self.D, self.D)
         Q, _ = np.linalg.qr(A)
         return Q
 
@@ -468,7 +465,7 @@ class ProblemaC11:
         return np.mean(-self.z * np.cos(2 * np.sqrt(np.abs(self.z))))
 
     def h1(self):
-        term1 = 100 * (self.y[:-1]*2 - self.y[1:])*2
+        term1 = 100 * (self.y[:-1]**2 - self.y[1:])**2
         term2 = (self.y[:-1] - 1)**2
         return np.sum(term1 + term2)
 
@@ -629,9 +626,8 @@ class ProblemaC15:
         return self.lower_bounds, self.upper_bounds
 
     def generar_m(self, seed=None):
-        if seed:
-            np.random.seed(seed)
-        A = np.random.randn(self.D, self.D)
+        rng = np.random.RandomState(seed)
+        A = rng.randn(self.D, self.D)
         Q, _ = np.linalg.qr(A)
         return Q
 
