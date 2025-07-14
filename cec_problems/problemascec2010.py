@@ -341,8 +341,8 @@ class ProblemaC08:
 
     def g1(self):
         term1 = 0.5 - np.exp(-0.1 * np.sqrt(1 / self.D * np.sum(self.y**2)))
-        term2 = 3 - np.exp(1 / self.D * np.sum(np.cos(0.1 * self.y)))
-        return term1 - term2 + np.exp(1)
+        term2 = -3 - np.exp(1 / self.D * np.sum(np.cos(0.1 * self.y)))
+        return term1 + term2 + np.exp(1)
 
     def sumar_violation(self):
         v1 = max(0.0, self.g1())
